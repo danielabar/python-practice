@@ -9,24 +9,42 @@ Usage:
 import sys
 
 
+def is_nobody(token):
+    return token == 0
+
+
 def is_player(token):
     return token in [1, 2]
 
 
-# >>> import importlib
-# >>> importlib.reload(tic_tac_toe)
-# board = [[2, 2, 0], [2, 1, 0], [2, 1, 1]]
-# board_2_won = [[2, 2, 2], [2, 1, 0], [2, 1, 1]]
-def who_won(board):
+def check_rows(board):
     # assume nobody won
     winner = 0
 
-    # check rows
     for row in board:
         unique_vals = set(row)
         candidate = unique_vals.pop()
         if (len(unique_vals) == 0 and is_player(candidate)):
             winner = candidate
+            break
+
+    return winner
+
+
+# >>> import importlib
+# >>> importlib.reload(tic_tac_toe)
+# winner_is_1_horizontal = [[1, 1, 1], [2, 1, 0], [0, 0, 2]]
+# winner_is_2_vertical = [[2, 2, 0], [2, 1, 0], [2, 1, 1]]
+# winner_is_1_vertical = [[0, 1, 0], [2, 1, 0], [2, 1, 1]]
+# winner_is_1_diagonal = [[1, 2, 0], [2, 1, 0], [2, 1, 1]]
+# no_winner = [[1, 2, 0], [2, 1, 0], [2, 1, 2]]
+def who_won(board):
+    winner = check_rows(board)
+
+    if (is_nobody(winner)):
+        # assumes same number of rows and cols
+        transpose = map(list, zip(*board))
+        winner = check_rows(transpose)
 
     return winner
 
