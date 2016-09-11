@@ -9,12 +9,17 @@ Usage:
 import sys
 
 
+NO_PLAYER = 0
+FIRST_PLAYER = 1
+SECOND_PLAYER = 2
+
+
 def is_nobody(token):
     return token == 0
 
 
 def is_player(token):
-    return token in [1, 2]
+    return token in [FIRST_PLAYER, SECOND_PLAYER]
 
 
 def build_diagonals(board):
@@ -95,7 +100,7 @@ def render_board(board_size, board):
 def generate_board(board_size):
     board = []
     for i in range(board_size):
-        row = [0] * board_size
+        row = [NO_PLAYER] * board_size
         board.append(row)
     return board
 
@@ -114,8 +119,9 @@ def play(board):
     while (move != "quit"):
         print("Enter move in row,col format, for example: 1,2. Type quit to exit.")
         move = input()
-        update_board(board, move)
-        render_board(len(board), board)
+        if (move != "quit"):
+            update_board(board, move)
+            render_board(len(board), board)
 
 
 def main(size):
