@@ -100,10 +100,29 @@ def generate_board(board_size):
     return board
 
 
+def update_board(board, move):
+    parsed = move.split(",")
+    intmove = map(int, parsed)
+    intmove2 = list(intmove)
+    board[intmove2[0]-1][intmove2[1]-1] = 1
+
+
+def play(board):
+    num_moves = 0
+    move = None
+
+    while (move != "quit"):
+        print("Enter move in row,col format, for example: 1,2. Type quit to exit.")
+        move = input()
+        update_board(board, move)
+        render_board(len(board), board)
+
+
 def main(size):
     board_size = int(size)
     board = generate_board(board_size)
     render_board(board_size, board)
+    play(board)
 
 
 if __name__ == '__main__':
