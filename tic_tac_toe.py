@@ -10,12 +10,13 @@ import sys
 
 
 def generate_horizontal(board_size):
-    a = ["--"] * 4
-    return " ".join(a)
+    bars = ["--"] * (board_size)
+    bars_with_spaces = " ".join(bars)
+    return " " + bars_with_spaces + " "
 
 
 def generate_board(board_size):
-    for i in range(board_size):
+    for i in range(board_size+1):
         print(generate_horizontal(board_size))
 
 
