@@ -44,5 +44,14 @@ class TestTicTacToe(unittest.TestCase):
         # Then
         self.assertEqual(0, result)
 
+    def test_translate_move_converts_to_int_and_subtracts_index(self):
+        # Given
+        move = "3,2"
+        # When
+        result = tic_tac_toe.translate_move(move)
+        # Then
+        self.assertEqual(2, result[0])
+        self.assertEqual(1, result[1])
+
 if __name__ == '__main__':
     unittest.main()

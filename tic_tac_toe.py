@@ -105,11 +105,22 @@ def generate_board(board_size):
     return board
 
 
-def update_board(board, move, player):
+def convert_move(str_val):
+    return int(str_val) - 1
+
+
+def translate_move(move):
     parsed = move.split(",")
-    intmove = map(int, parsed)
-    intmove2 = list(intmove)
-    board[intmove2[0]-1][intmove2[1]-1] = player
+    return list(map(convert_move, parsed))
+
+
+def update_board(board, move, player):
+    board[move[0]][move[1]] = player
+
+
+def validate(move):
+    result = (true, "valid")
+    return result
 
 
 def play(board):
@@ -121,7 +132,8 @@ def play(board):
         print("Player {}: Enter move in row,col format, for example: 1,2. Type quit to exit.".format(whose_turn))
         move = input()
         if (move != "quit"):
-            update_board(board, move, whose_turn)
+            translated_move = translate_move(move)
+            update_board(board, translated_move, whose_turn)
             render_board(len(board), board)
             num_moves += 1
 
