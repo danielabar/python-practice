@@ -9,6 +9,28 @@ Usage:
 import sys
 
 
+def is_player(token):
+    return token in [1, 2]
+
+
+# >>> import importlib
+# >>> importlib.reload(tic_tac_toe)
+# board = [[2, 2, 0], [2, 1, 0], [2, 1, 1]]
+# board_2_won = [[2, 2, 2], [2, 1, 0], [2, 1, 1]]
+def who_won(board):
+    # assume nobody won
+    winner = 0
+
+    # check rows
+    for row in board:
+        unique_vals = set(row)
+        candidate = unique_vals.pop()
+        if (len(unique_vals) == 0 and is_player(candidate)):
+            winner = candidate
+
+    return winner
+
+
 def generate_vertical(board_size):
     bar = ["|"] * (board_size + 1)
     bar_with_spaces = "   ".join(bar)
