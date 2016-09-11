@@ -15,7 +15,7 @@ SECOND_PLAYER = 2
 
 
 def is_nobody(token):
-    return token == 0
+    return token == NO_PLAYER
 
 
 def is_player(token):
@@ -105,11 +105,11 @@ def generate_board(board_size):
     return board
 
 
-def update_board(board, move):
+def update_board(board, move, player):
     parsed = move.split(",")
     intmove = map(int, parsed)
     intmove2 = list(intmove)
-    board[intmove2[0]-1][intmove2[1]-1] = 1
+    board[intmove2[0]-1][intmove2[1]-1] = player
 
 
 def play(board):
@@ -117,11 +117,13 @@ def play(board):
     move = None
 
     while (move != "quit"):
-        print("Enter move in row,col format, for example: 1,2. Type quit to exit.")
+        whose_turn = FIRST_PLAYER if (num_moves % 2 == 0) else SECOND_PLAYER
+        print("Player {}: Enter move in row,col format, for example: 1,2. Type quit to exit.".format(whose_turn))
         move = input()
         if (move != "quit"):
-            update_board(board, move)
+            update_board(board, move, whose_turn)
             render_board(len(board), board)
+            num_moves += 1
 
 
 def main(size):
