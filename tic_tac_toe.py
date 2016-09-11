@@ -54,13 +54,6 @@ def check_rows(board):
     return winner
 
 
-# >>> import importlib
-# >>> importlib.reload(tic_tac_toe)
-# winner_is_1_horizontal = [[1, 1, 1], [2, 1, 0], [0, 0, 2]]
-# winner_is_2_vertical = [[2, 2, 0], [2, 1, 0], [2, 1, 1]]
-# winner_is_1_vertical = [[0, 1, 0], [2, 1, 0], [2, 1, 1]]
-# winner_is_1_diagonal = [[1, 2, 0], [2, 1, 0], [2, 1, 1]]
-# no_winner = [[1, 2, 0], [2, 1, 0], [2, 1, 2]]
 def who_won(board):
     winner = check_rows(board)
 
@@ -76,10 +69,14 @@ def who_won(board):
     return winner
 
 
-def generate_vertical(board_size):
-    bar = ["|"] * (board_size + 1)
-    bar_with_spaces = "   ".join(bar)
-    return bar_with_spaces
+def generate_vertical(board_size, row):
+    output = []
+    for val in row:
+        output.append("|")
+        output.append(" ")
+        output.append(str(val))
+        output.append(" ")
+    return "".join(output) + "|"
 
 
 def generate_horizontal(board_size):
@@ -88,16 +85,25 @@ def generate_horizontal(board_size):
     return " " + bars_with_spaces + " "
 
 
-def generate_board(board_size):
+def render_board(board_size, board):
     for i in range(board_size+1):
         print(generate_horizontal(board_size))
         if (i < board_size):
-            print(generate_vertical(board_size))
+            print(generate_vertical(board_size, board[i]))
+
+
+def generate_board(board_size):
+    board = []
+    for i in range(board_size):
+        row = [0] * board_size
+        board.append(row)
+    return board
 
 
 def main(size):
     board_size = int(size)
-    generate_board(board_size)
+    board = generate_board(board_size)
+    render_board(board_size, board)
 
 
 if __name__ == '__main__':
