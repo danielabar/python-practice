@@ -9,8 +9,14 @@ Usage:
 import sys
 
 
+def generate_vertical(board_size):
+    bar = ["|"] * (board_size + 1)
+    bar_with_spaces = "   ".join(bar)
+    return bar_with_spaces
+
+
 def generate_horizontal(board_size):
-    bars = ["--"] * (board_size)
+    bars = ["---"] * (board_size)
     bars_with_spaces = " ".join(bars)
     return " " + bars_with_spaces + " "
 
@@ -18,6 +24,8 @@ def generate_horizontal(board_size):
 def generate_board(board_size):
     for i in range(board_size+1):
         print(generate_horizontal(board_size))
+        if (i < board_size):
+            print(generate_vertical(board_size))
 
 
 def main(size):
