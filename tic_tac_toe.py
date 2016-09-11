@@ -17,6 +17,29 @@ def is_player(token):
     return token in [1, 2]
 
 
+def build_diagonals(board):
+    diagonals = []
+    size = len(board)
+
+    # left to right
+    left_to_right = []
+    for row_idx, row in enumerate(board):
+        for col_idx, col in enumerate(row):
+            if (row_idx == col_idx):
+                left_to_right.append(col)
+    diagonals.append(left_to_right)
+
+    # right to left
+    right_to_left = []
+    for row_idx, row in enumerate(board):
+        for col_idx, col in reversed(list(enumerate(row))):
+            if (row_idx == (size - col_idx - 1)):
+                right_to_left.append(col)
+    diagonals.append(right_to_left)
+
+    return diagonals
+
+
 def check_rows(board):
     # assume nobody won
     winner = 0
@@ -45,6 +68,10 @@ def who_won(board):
         # assumes same number of rows and cols
         transpose = map(list, zip(*board))
         winner = check_rows(transpose)
+
+        if (is_nobody(winner)):
+            diagonals = build_diagonals(board)
+            winner = check_rows(diagonals)
 
     return winner
 
