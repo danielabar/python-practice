@@ -9,12 +9,17 @@ Usage:
 import sys
 
 
+NO_PLAYER = 0
+FIRST_PLAYER = 1
+SECOND_PLAYER = 2
+
+
 def is_nobody(token):
-    return token == 0
+    return token == NO_PLAYER
 
 
 def is_player(token):
-    return token in [1, 2]
+    return token in [FIRST_PLAYER, SECOND_PLAYER]
 
 
 def build_diagonals(board):
@@ -95,16 +100,27 @@ def render_board(board_size, board):
 def generate_board(board_size):
     board = []
     for i in range(board_size):
-        row = [0] * board_size
+        row = [NO_PLAYER] * board_size
         board.append(row)
     return board
 
 
-def update_board(board, move):
+def convert_move(str_val):
+    return int(str_val) - 1
+
+
+def translate_move(move):
     parsed = move.split(",")
-    intmove = map(int, parsed)
-    intmove2 = list(intmove)
-    board[intmove2[0]-1][intmove2[1]-1] = 1
+    return list(map(convert_move, parsed))
+
+
+def update_board(board, move, player):
+    board[move[0]][move[1]] = player
+
+
+def validate(move):
+    result = (true, "valid")
+    return result
 
 
 def play(board):
@@ -112,10 +128,14 @@ def play(board):
     move = None
 
     while (move != "quit"):
-        print("Enter move in row,col format, for example: 1,2. Type quit to exit.")
+        whose_turn = FIRST_PLAYER if (num_moves % 2 == 0) else SECOND_PLAYER
+        print("Player {}: Enter move in row,col format, for example: 1,2. Type quit to exit.".format(whose_turn))
         move = input()
-        update_board(board, move)
-        render_board(len(board), board)
+        if (move != "quit"):
+            translated_move = translate_move(move)
+            update_board(board, translated_move, whose_turn)
+            render_board(len(board), board)
+            num_moves += 1
 
 
 def main(size):
