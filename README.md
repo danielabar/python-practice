@@ -20,3 +20,5 @@ To reload modules interactively in python shell:
 ```shell
 python tic_tac_toe_test.py -v
 ```
+
+[Pick Word](http://www.practicepython.org/exercise/2016/09/24/30-pick-word.html)
