@@ -22,7 +22,6 @@ def guess_game():
     guess = make_guess(low, high)
 
     input("Pick a number between 1 and 100 inclusive but do not type it in. Hit enter to continue...")
-    previous_answer = -1
     answer = get_guess(guess)
 
     while answer != 'y':
