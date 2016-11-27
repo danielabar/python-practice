@@ -29,3 +29,5 @@ python tic_tac_toe_test.py -v
 [Pick Word](http://www.practicepython.org/exercise/2016/09/24/30-pick-word.html) | [Solution](solutions/pick_word.py)
 
 [Guessing Game Two](http://www.practicepython.org/exercise/2015/11/01/25-guessing-game-two.html) | [Solution](solutions/guess_game_2.py)
+
+[File Overlap](http://www.practicepython.org/exercise/2014/12/14/23-file-overlap.html) | [Solution](solutions/file_overlap.py)
